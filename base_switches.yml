@@ -1,0 +1,73 @@
+---
+    - name: Config VLANS
+      ios_vlans:
+        config:
+           - name: "{{ item.name }}"
+             vlan_id: "{{ item.vlan }}"
+      with_items: "{{ vlans }}"
+
+
+    - name: Config  Tacacs, SSH and NTP origen
+      ios_command:
+        commands:
+          - conf ter
+          - ip ssh source-interface vlan {{ mng.vlan }}
+          - ip tacacs source-interface vlan {{ mng.vlan}}
+          - logging source-interface vlan {{ mng.vlan}}
+          - ntp server 172.23.3.13 source vlan {{ mng.vlan}}
+      when: mode is defined  
+
+    - name: Config  Tacacs, SSH and NTP origen
+      ios_command:
+        commands:
+          - conf ter
+          - ip ssh source-interface vlan {{ vlans[4].vlan }}
+          - ip tacacs source-interface vlan {{ vlans[4].vlan}}
+          - logging source-interface vlan {{ vlans[4].vlan}}
+          - ntp server 172.23.3.13 source vlan {{ vlans[4].vlan}}
+      when: mode is undefined  
+
+
+    - name: Change hostname
+      ios_command:
+        commands:
+          - conf ter
+          - hostname {{ hostname }}
+
+
+    - name: CONFIGURANDO STACK  j2
+      ios_config:
+        src: "stack.j2"
+
+    - name: SEND BASE  TO SWTICH
+      ios_config:
+        src: "base.j2"
+
+    - name: CONFIGURANDO INTERFACES  j2
+      ios_config:
+        src: "interfaces.j2"
+
+    - name: Config DHCP snooping
+      ios_command:
+        commands:
+          - conf ter
+          - ip arp inspection vlan {{ snooping }}
+          - ip arp inspection filter ARP vlan {{ vlans[0].vlan }}
+          - no ip dhcp snooping information option
+          - ip dhcp bootp ignore
+          - ip dhcp snooping vlan {{ snooping }}
+          - ip dhcp snooping
+      when: snooping is defined  
+
+
+    - name: WRITE MEMORY
+      cli_command:
+        command: "wr mem"
+
+
+    - debug:
+       msg:
+       - "{{ model }}"
+       - "{{ ansible_net_model }}"
+       - "{{ ansible_net_serialnum }}"
+

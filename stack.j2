@@ -1,0 +1,10 @@
+#switch module stack
+#configure 
+#
+
+
+{% if stack is defined  %}
+{% for line in stack %}
+  switch {{loop.index}} provision {{ line }}
+{% endfor %}
+{%  endif %}

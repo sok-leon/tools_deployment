@@ -1,0 +1,88 @@
+#SVI manager
+
+interface  vlan{{mng.vlan}}
+ ip address {{ mng.ip }}
+
+ip default-gateway {{ mng.gateway }}
+
+default interface range {{ interface.access }}
+
+{% if mode is undefined %}
+interface range {{ interface.access }}
+ description Uplink to user
+ switchport access vlan {{ vlans[0].vlan }}
+ switchport mode access
+ switchport voice vlan  {{ vlans[3].vlan }}
+ switchport port-security maximum 3
+ switchport port-security violation  restrict
+ switchport port-security aging time 3
+ switchport port-security
+ ip arp inspection limit rate 450 burst interval 3
+{% if model == "2960X" %}
+ srr-queue bandwidth share 1 30 35 5
+ priority-queue out
+ mls qos trust cos
+ #auto qos trust 
+{% endif %}
+ storm-control broadcast level 20.00
+ storm-control action shutdown
+ spanning-tree portfast
+ spanning-tree guard root
+{% endif %}
+
+{% if mode is defined %}
+interface range {{ interface.access }}
+ description *** Libre ***
+ shutdown
+ switchport access vlan {{ vlans[1].vlan }}
+ switchport mode access
+ switchport port-security maximum 1
+ switchport port-security violation  restrict
+ switchport port-security
+ switchport port-security mac-address sticky
+ ip arp inspection limit rate 450 burst interval 3
+{% if model == "2960X" %}
+ srr-queue bandwidth share 1 30 35 5
+ priority-queue out
+ mls qos trust cos
+ #auto qos trust 
+{% endif %}
+ storm-control broadcast level 20.00
+ storm-control action shutdown
+ spanning-tree portfast
+ spanning-tree guard root
+{% endif %}
+
+
+
+{% if trunk is defined  %}
+{% for line in trunk %}
+interface  {{ line }}
+ description TRUNK 
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan {{ allow_trunk }}
+ switchport mode trunk
+ switchport nonegotiate
+ ip arp inspection trust
+ udld port aggressive
+{% if model == "2960X" %}
+ mls qos trust cos
+ #auto qos trust 
+{% endif %}
+ storm-control broadcast level 60.00
+ storm-control action shutdown
+ ip dhcp snooping trust
+{%  endfor %}
+{% endif %}
+
+{% if ap is defined  %}
+{% for line in ap %}
+ interface range {{ line }}
+  description AP-Ligero
+  switchport trunk native vlan {{ vlans[5].vlan }}
+  switchport trunk allowed vlan {{ allow_trunk_ap }}
+  switchport trunk allowed vlan add {{ vlans[5].vlan }}
+  switchport mode trunk
+  ip arp inspection trust
+{% endfor %}
+{%  endif %}

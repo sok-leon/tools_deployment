@@ -1,0 +1,44 @@
+---
+hostname: CAETOP1R1D1
+sede: CAETO
+
+mng: 
+ ip: 172.24.88.67 255.255.255.192
+ gateway: 172.24.88.65
+ vlan: 803
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 602
+ - name: WLAN_EST_{{sede}}
+   vlan: 653
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 680
+ - name: VOZ
+   vlan: 702
+ - name: AdminSW
+   vlan: 803
+ - name: AdminAP
+   vlan: 831
+ - name: Publicas
+   vlan: 950
+ 
+
+interface:
+ access: Gi1/0/4-24
+
+trunk:
+ - Gi1/1/1
+
+ap:
+ - Gi1/0/1
+ - Gi1/0/2
+ - Gi1/0/3
+
+
+allow_trunk: 602,653,680,702,803,831,950
+
+allow_trunk_ap: 653,680,831
+
+snooping: 602,653,680,702
+

@@ -1,0 +1,41 @@
+---
+# Ansible Playbook to upload new Cisco IOS
+# Send config base for 9200L
+
+- name: Show model
+  hosts: "{{ device }}"
+  gather_facts: no
+  connection: network_cli
+
+  vars:
+          #ansible_command_timeout: 1200
+    model: "{{ ansible_net_model | regex_replace('.*C(\\d+.).*$', '\\1') }}"
+    ansible_command_timeout: 1200
+
+  tasks:
+  
+          #    - name: Delete users with aggregate
+          #      cisco.ios.ios_user:
+          #        aggregate:
+          #        - name: dcytic_admin
+          #
+          #        state: absent
+          #
+          #
+          #    - name: Add a user with MD5 hashed password
+          #      cisco.ios.ios_user:
+          #        name: dcytic_admin
+          #        privilege: 15
+          #        hashed_password:
+          #          type: 5
+          #          value: $1$uCbX$YtayoU8Prws4MDZvcIpER/
+          #
+
+
+ 
+    - name: Configuracion 
+      ios_facts:
+
+ 
+    - ansible.builtin.include_tasks:  base_EGA.yml
+  

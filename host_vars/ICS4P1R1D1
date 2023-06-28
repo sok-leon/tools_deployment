@@ -1,0 +1,63 @@
+---
+hostname: ICS4P1R1D1
+sede: ICS
+
+mng: 
+ ip: 172.24.64.165 255.255.255.224
+ gateway: 172.24.64.161
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 602
+ - name: WLAN_EST_{{sede}}
+   vlan: 652 
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 657
+ - name: VOZ
+   vlan: 703
+ - name: AdminSW
+   vlan: 806
+ - name: AdminAP
+   vlan: 800
+ - name: Publicas
+   vlan: 950
+ 
+
+interface:
+ access: Gi1/0/19-24,Gi2/0/1-48,Gi3/0/1-48,Gi4/0/1-48
+
+trunk:
+ - Gi1/1/1
+
+ap:
+ - Gi1/0/1
+ - Gi1/0/2
+ - Gi1/0/3
+ - Gi1/0/4
+ - Gi1/0/5
+ - Gi1/0/6
+ - Gi1/0/7
+ - Gi1/0/8
+ - Gi1/0/9
+ - Gi1/0/10
+ - Gi1/0/11
+ - Gi1/0/12
+ - Gi1/0/13
+ - Gi1/0/14
+ - Gi1/0/15
+ - Gi1/0/16
+ - Gi1/0/17
+ - Gi1/0/18
+
+
+allow_trunk: 602,652,657,703,806,800,950
+
+allow_trunk_ap: 652,657,800
+
+snooping: 602,652,657,703
+
+stack:
+ - c9200l-24p-4g
+ - c9200l-48t-4x
+ - c9200l-48t-4g
+ - c9200l-48t-4g

@@ -1,0 +1,36 @@
+---
+hostname: CCO3P1R1D5
+sede: CCO3
+
+mng: 
+ ip: 172.24.89.138 255.255.255.192
+ gateway: 172.24.89.129
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 601
+ - name: WLAN_EST_{{sede}}
+   vlan: 650 
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 680
+ - name: VOZ
+   vlan: 702
+ - name: AdminSW
+   vlan: 805
+ - name: AdminAP
+   vlan: 830
+ - name: Publicas
+   vlan: 950
+ 
+
+interface:
+ access: Gi1/0/1-47
+
+trunk:
+ - G1/0/48
+
+
+
+allow_trunk: 601,650,680,702,805,830,950
+
+allow_trunk_ap: 650,680,830

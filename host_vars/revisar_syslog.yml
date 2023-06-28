@@ -1,0 +1,8 @@
+---
+
+- name: Configure syslog
+  ios_logging:
+    dest: host
+    name: "{{ log_host }}"
+    state: present
+

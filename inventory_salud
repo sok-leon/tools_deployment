@@ -1,0 +1,67 @@
+---
+  all:
+    vars:
+      ansible_network_os: ios
+      ansible_user: dcytic_admin
+      ansible_password: DcyT1c.8102*
+      new_password: DcyT1c.8102*
+      ansible_network_cli_ssh_type: paramiko
+
+    children:
+        HUP3:
+          hosts:
+            HUP3P1R1D2:
+              ansible_host: 172.24.60.92
+            HUP3P1R1D3:
+              ansible_host: 172.24.60.93
+            HUP3P1R1v1:
+              ansible_host: 172.19.7.44
+ 
+
+
+        MED3:
+          hosts:
+            MED3P1R2D1:
+              ansible_host: 172.24.60.134
+            MED3P1R2D2:
+              ansible_host: 172.24.60.135
+            MED3P1R1D1:
+              ansible_host: 172.19.11.89
+            MED3P1R1D2:
+              ansible_host: 172.19.10.173
+            MED3P1R3D1:
+              ansible_host: 172.18.126.4
+
+        MED1:
+          hosts:
+            MED1P1R1D1:
+              ansible_host: 172.24.60.199
+ 
+
+
+        MED2:
+          hosts:
+            MED2P2R1D1:
+              ansible_host: 172.24.60.200
+            MED2P1R2D1:
+              ansible_host: 172.19.15.23
+            MED2P1R2D2:
+              ansible_host: 172.24.60.205 
+
+
+
+        EST10:
+          hosts:
+            EST10-P1R1v-1:
+              ansible_host: 172.24.17.212
+
+        MED5:
+          hosts:
+            MED5P1R1D1:
+              ansible_host: 172.18.126.120
+            MED5P1R1D2:
+              ansible_host: 172.18.126.147
+            MED5P1R1D3:
+              ansible_host: 172.18.124.214
+            MED5P1R1D4:
+              ansible_host: 172.18.124.148

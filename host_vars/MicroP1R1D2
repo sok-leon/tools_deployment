@@ -1,0 +1,55 @@
+---
+hostname: MICROP1R1D2
+sede: MICRO
+
+mng: 
+ ip: 172.24.96.70 255.255.255.192
+ gateway: 172.24.96.65
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 609
+ - name: WLAN_EST_{{sede}}
+   vlan: 679 
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 680
+ - name: VOZ
+   vlan: 702
+ - name: AdminSW
+   vlan: 815
+ - name: AdminAP
+   vlan: 836
+ - name: Publicas
+   vlan: 960
+ 
+
+interface:
+ access: Gi1/0/1-47,Gi2/0/9-24,Gi3/0/1-48,Gi4/0/1-48
+
+trunk:
+ - Gi1/0/48
+ - Gi1/1/1
+
+ap:
+ - Gi1/0/1
+ - Gi1/0/2
+ - Gi1/0/3
+ - Gi1/0/4
+ - Gi1/0/5
+ - Gi1/0/6
+ - Gi1/0/7
+ - Gi1/0/8
+
+
+allow_trunk: 609,679,680,690,702,815,836,960
+
+allow_trunk_ap: 679,680,836
+
+snooping: 609,679,680,702
+
+stack:
+ - c9200l-48t-4g
+ - c9200l-24p-4g
+ - c9200l-48t-4g
+ - c9200l-48t-4g
+

@@ -1,0 +1,59 @@
+---
+
+
+    - name: CHECK CURRENT VERSION
+      ios_facts:
+
+    - debug:
+        msg:
+        - "Current version is {{ ansible_net_version }}"
+        - "Upgrade image is {{upgrade_ios_version_X}}"
+
+    - debug:
+        msg:
+        - "New IOS and current IOS are different."
+      when: ansible_net_version != upgrade_ios_version_X
+
+
+    - name: Continue if hash matches
+      block:
+
+      - name: COPY_NEW_IOS_FROM_FTP Mgmt-vrf (172.18.124.94)
+        cli_command:
+           command: 'copy tftp://{{tftp_ip_server}}/{{new_ios_file_name_X}} flash:'
+           prompt:
+             - 'Destination filename \[{{ new_ios_file_name_X }}\]?'
+           answer: '{{new_ios_file_name_X}}'
+        when: env == "mgnt"
+
+      - name: Check md5sum of IOS on device
+        cli_command:
+          command: 'verify /md5 flash:{{ new_ios_file_name_X }} {{ ios_hash_X }}'
+        register: md5_output
+
+      - name: Continue if hash matches
+        block:
+
+        - name: Change bootVariable to new image
+          ios_config:
+             commands:
+                - conf ter
+                - boot system 'flash:{{new_ios_file_name_X}}'
+             save_when: always
+
+        - name: Write configa
+          ios_command:
+            commands:
+              - command: wr mem
+
+
+        - name: Wait for switch to reboot
+          wait_for:
+            host: "{{ inventory_hostname }}"
+            port: 22
+            delay: 60
+            timeout: 300
+          delegate_to: localhost
+
+        when: '"Verified" in md5_output.stdout'
+      when: ansible_net_version != upgrade_ios_version_X

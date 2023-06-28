@@ -1,0 +1,28 @@
+---
+mng:
+ vlan: 820
+
+
+vlans:
+ - name: EGA
+   vlan: 100
+ - name: AdminSW
+   vlan: 820
+ 
+
+interface:
+ access: Gi1/0/1-24
+
+trunk:
+ - G1/0/25
+ - G1/0/26
+ - G1/0/27
+
+allow_trunk: 100,820
+
+
+ansible_network_os: ios
+ansible_user: soporte
+ansible_password: EGA-2022
+ansible_network_cli_ssh_type: paramiko
+

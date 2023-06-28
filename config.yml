@@ -1,0 +1,103 @@
+---
+# Ansible Playbook to upload new Cisco IOS
+# Send config base for 9200L
+
+- name: Show model
+  hosts: "{{ device }}"
+  gather_facts: no
+  connection: network_cli
+
+  vars:
+          #ansible_command_timeout: 1200
+    model: "{{ ansible_net_model | regex_replace('.*C(\\d+.).*$', '\\1') }}"
+    upgrade_ios_version: 17.06.04
+    new_ios_file_name: cat9k_lite_iosxe.17.06.04.SPA.bin
+    
+    upgrade_ios_version_X: 15.2(7)E7
+    new_ios_file_name_X: c2960x-universalk9-mz.152-7.E7.bin
+    ios_hash_X: 1b3781db619dcce6a2677628acc15439
+    
+    ansible_command_timeout: 1200
+    tftp_ip_server: 172.18.124.94
+    ios_hash: 656f3b02325435c69cb6dd33ee9ef684
+
+  tasks:
+  
+          #    - name: Delete users with aggregate
+          #      cisco.ios.ios_user:
+          #        aggregate:
+          #        - name: dcytic_admin
+          #
+          #        state: absent
+          #
+          #
+          #    - name: Add a user with MD5 hashed password
+          #      cisco.ios.ios_user:
+          #        name: dcytic_admin
+          #        privilege: 15
+          #        hashed_password:
+          #          type: 5
+          #          value: $1$uCbX$YtayoU8Prws4MDZvcIpER/
+          #
+
+
+    - ansible.builtin.include_tasks:  bk.yml
+ 
+    - name: Configuracion 
+      ios_facts:
+
+ 
+    - ansible.builtin.include_tasks:  base_switches.yml
+  
+    
+    - name: Valida
+      block: 
+
+        - name: Config for model 2960S
+          command: echo "modelo 2960.."
+          register: hello
+ 
+        - debug:
+           msg:
+           - "{{ model }}"
+           - "{{ hello.stdout}}"
+           - "{{ ansible_net_model }}"
+           - "{{ ansible_net_serialnum }}"
+
+ 
+      
+      when: (model == "2960S")
+
+    - name: Valida model
+      block: 
+
+        - name: Config for model 2960X
+          command: echo "modelo 2960XXX.."
+          register: hello
+ 
+        - ansible.builtin.include_tasks: update2960X.yml
+ 
+        - debug:
+           msg:
+           - "{{ model }}"
+           - "{{ hello.stdout}}"
+           - "{{ ansible_net_model }}"
+           - "{{ ansible_net_serialnum }}"
+      when: (model == "2960X")
+ 
+
+    - name: Valida
+      block:
+              
+        - name: Config for modelo 9200L
+          command: echo "modelo 9200L.."
+          register: hello
+
+        - ansible.builtin.include_tasks: updateC9200L.yml
+ 
+      when: ( model == "9200L")
+      
+
+  
+     
+     

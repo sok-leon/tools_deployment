@@ -1,0 +1,27 @@
+---
+hostname: CAETOP1R1v1
+sede: CAETO
+mode: video
+vlan: 804
+
+mng: 
+ ip: 172.24.16.108 255.255.255.192
+ gateway: 172.24.16.65
+ vlan: 804
+
+vlans:
+ - name: AdminSW
+   vlan: 804
+ - name: Video_{{sede}}
+   vlan: 1010
+ 
+
+interface:
+ access: Gi1/0/1-24
+
+trunk:
+ - Gi1/1/1
+
+
+allow_trunk: 804,1010
+

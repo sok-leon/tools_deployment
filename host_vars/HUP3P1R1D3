@@ -1,0 +1,55 @@
+---
+hostname: HUP3P1R1D3
+sede: HUP3
+
+mng: 
+ ip: 172.24.60.93 255.255.255.192
+ gateway: 172.24.60.126
+ vlan: 805
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 601
+ - name: WLAN_EST_{{sede}}
+   vlan: 655
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 657
+ - name: VOZ
+   vlan: 703
+ - name: AdminSW
+   vlan: 805
+ - name: AdminAP
+   vlan: 799
+ - name: Publicas
+   vlan: 950
+ 
+
+interface:
+ access: Gi1/0/13-23
+
+trunk:
+ - Gi1/0/24
+
+ap:
+ - Gi1/0/1
+ - Gi1/0/2
+ - Gi1/0/3
+ - Gi1/0/4
+ - Gi1/0/5
+ - Gi1/0/6
+ - Gi1/0/7
+ - Gi1/0/8
+ - Gi1/0/9
+ - Gi1/0/10
+ - Gi1/0/11
+ - Gi1/0/12
+
+
+
+allow_trunk: 601,655,657,703,805,799,950
+
+allow_trunk_ap: 655,657,799
+
+snooping: 601,655,657,703
+
+#stack:

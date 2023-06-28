@@ -1,0 +1,36 @@
+---
+hostname: ICS4P1R1D4
+sede: ICS
+
+mng: 
+ ip: 172.24.64.174 255.255.255.224
+ gateway: 172.24.64.161
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 602
+ - name: WLAN_EST_{{sede}}
+   vlan: 652 
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 657
+ - name: VOZ
+   vlan: 703
+ - name: AdminSW
+   vlan: 806
+ - name: AdminAP
+   vlan: 796
+ - name: Publicas
+   vlan: 950
+ 
+
+interface:
+ access: Gi1/0/1-47
+
+trunk:
+ - Gi1/1/1
+ - Gi1/0/48
+
+
+allow_trunk: 602,652,657,703,806,796,950
+
+allow_trunk_ap: 652,657,796

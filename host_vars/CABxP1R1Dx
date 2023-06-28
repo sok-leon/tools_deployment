@@ -1,0 +1,39 @@
+---
+hostname: CAB2P1R1D1
+sede: CAB
+
+mng: 
+ ip: 172.24.79.140 255.255.255.192
+ gateway: 172.24.79.129
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 600
+ - name: WLAN_EST_{{sede}}
+   vlan: 650 
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 651
+ - name: VOZ
+   vlan: 700
+ - name: AdminSW
+   vlan: 804
+ - name: AdminAP
+   vlan: 805
+ - name: Publicas
+   vlan: 950
+ 
+
+interface:
+ access: Gi1/0/1-20
+
+trunk:
+ - G1/1/1
+ - G1/0/21
+ - G1/0/22
+ - G1/0/23
+ - G1/0/24
+
+
+allow_trunk: 600,650,651,700,804,805,950
+
+allow_trunk_ap: 650,651,805

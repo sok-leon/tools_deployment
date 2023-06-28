@@ -1,0 +1,17 @@
+---
+hostname: HZAC2P1R1D1
+
+vlan:
+ - 600
+ - 650
+ - 651
+ - 700
+ - 804
+ - 805
+ - 954
+
+interface:
+ access: G0/5-22
+ trunk: G0/23-24
+ ap: Gi0/1-4
+

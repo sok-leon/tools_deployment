@@ -1,0 +1,38 @@
+---
+hostname: ING8P3R1D1
+sede: ING
+
+mng: 
+ ip: 172.24.85.15 255.255.255.192
+ gateway: 172.24.85.1
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 601
+ - name: WLAN_EST_{{sede}}
+   vlan: 651 
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 680
+ - name: VOZ
+   vlan: 700
+ - name: AdminSW
+   vlan: 805
+ - name: AdminAP
+   vlan: 830
+ - name: Publicas
+   vlan: 950
+ 
+
+interface:
+ access: Gi1/0/1-47
+
+trunk:
+ - Gi1/0/48
+
+
+allow_trunk: 601,651,680,700,805,830,950
+
+allow_trunk_ap: 650,655,796
+
+snooping: 601,651,680,700
+

@@ -1,0 +1,50 @@
+---
+hostname: MED5P1R1D1
+sede: MED
+
+mng: 
+ ip: 172.24.60.130 255.255.255.192
+ gateway: 172.24.60.190
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 602
+ - name: WLAN_EST_{{sede}}
+   vlan: 650
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 657
+ - name: VOZ
+   vlan: 700
+ - name: AdminSW
+   vlan: 806
+ - name: AdminAP
+   vlan: 795
+ - name: Publicas
+   vlan: 950
+ 
+
+interface:
+ access: Gi1/0/7-19
+
+trunk:
+ - Te1/1/1
+ - Gi1/0/20
+ - Gi1/0/21
+ - Gi1/0/22
+ - Gi1/0/23
+ - Gi1/0/24
+
+ap:
+ - Gi1/0/1
+ - Gi1/0/2
+ - Gi1/0/3
+ - Gi1/0/4
+ - Gi1/0/5
+ - Gi1/0/6
+
+
+allow_trunk: 602,650,657,700,806,795,950
+
+allow_trunk_ap: 650,657,795
+
+snooping: 602,650,657,700

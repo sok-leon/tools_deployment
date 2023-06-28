@@ -1,0 +1,57 @@
+---
+    - name: Config VLANS
+      ios_vlans:
+        config:
+           - name: "{{ item.name }}"
+             vlan_id: "{{ item.vlan }}"
+      with_items: "{{ vlans }}"
+
+
+    - name: Config  Tacacs, SSH and NTP origen
+      ios_command:
+        commands:
+          - conf ter
+          - ip ssh source-interface vlan {{ mng.vlan }}
+          - ip tacacs source-interface vlan {{ mng.vlan}}
+          - logging source-interface vlan {{ mng.vlan}}
+          - ntp server 172.23.3.13 source vlan {{ mng.vlan}}
+      when: mode is defined  
+
+    - name: Config  Tacacs, SSH and NTP origen
+      ios_command:
+        commands:
+          - conf ter
+          - ip ssh source-interface vlan {{  mng.vlan }}
+          - ip tacacs source-interface vlan {{ mng.vlan}}
+          - logging source-interface vlan {{ mng.vlan}}
+          - ntp server 172.23.3.13 source vlan {{ mng.vlan}}
+      when: mode is undefined  
+
+
+    - name: Eliminar vlan 
+      ios_command:
+        commands:
+          - conf ter
+          - no vlan 604
+          - no vlan 703
+
+
+    - name: SEND BASE  TO SWTICH
+      ios_config:
+        src: "base_EGA.j2"
+
+    - name: CONFIGURANDO INTERFACES  j2
+      ios_config:
+        src: "interfaces_EGA.j2"
+
+    - name: WRITE MEMORY
+      cli_command:
+        command: "wr mem"
+
+
+    - debug:
+       msg:
+       - "{{ model }}"
+       - "{{ ansible_net_model }}"
+       - "{{ ansible_net_serialnum }}"
+

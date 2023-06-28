@@ -1,0 +1,220 @@
+clock timezone Mexico -6 0
+clock summer-time UTC recurring last Sun Apr 2:00 1 Sun Oct 2:00
+
+vtp domain buap.mx
+vtp mode transparent
+
+
+{% if model == "2960X" %}
+ip domain-name buap.mx
+{% endif %}
+
+{% if model == "9200L" %}
+ip domain name buap.mx
+
+
+{% endif %}
+
+
+udld aggressive
+
+spanning-tree mode rapid-pvst
+spanning-tree loopguard default
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+spanning-tree extend system-id
+
+
+errdisable recovery cause udld
+errdisable recovery cause bpduguard
+errdisable recovery cause security-violation
+errdisable recovery cause dhcp-rate-limit
+errdisable recovery cause storm-control
+errdisable recovery cause arp-inspection
+errdisable recovery interval 60
+
+
+lldp run
+
+
+{% if model == "9200L" %}
+interface GigabitEthernet0/0
+ vrf forwarding Mgmt-vrf
+ ip address dhcp
+
+{% endif %}
+
+{% if model == "2960X" %}
+class-map match-all AUTOQOS_VOIP_DATA_CLASS
+ match ip dscp ef
+class-map match-all AUTOQOS_DEFAULT_CLASS
+ match access-group name AUTOQOS-ACL-DEFAULT
+class-map match-all AUTOQOS_VOIP_SIGNAL_CLASS
+ match ip dscp cs3
+!
+policy-map AUTOQOS-SRND4-CISCOPHONE-POLICY
+ class AUTOQOS_VOIP_DATA_CLASS
+  set dscp ef
+  police 128000 8000 exceed-action policed-dscp-transmit
+ class AUTOQOS_VOIP_SIGNAL_CLASS
+  set dscp cs3
+  police 32000 8000 exceed-action policed-dscp-transmit
+ class AUTOQOS_DEFAULT_CLASS
+  set dscp default
+  police 10000000 8000 exceed-action policed-dscp-transmit
+
+
+interface FastEthernet0
+ ip address dhcp
+!
+
+{% endif %}
+
+archive
+ path tftp://172.23.6.15/{{ inventory_hostname }}
+ write-memory
+ time-period 10080
+
+
+crypto key generate rsa modulus 1024
+ip ssh time-out 60
+ip ssh authentication-retries 5
+ip ssh version 2
+ip ssh logging events
+
+ip access-list extended ACCESO
+ 10 permit ip 172.24.0.0 0.0.255.255 any
+ 20 permit ip 172.18.124.0 0.0.3.255 any
+ 30 permit ip host 148.228.11.250 any
+ 40 permit ip host 148.228.54.1 any
+ 50 permit ip 172.31.210.0 0.0.0.255 any
+
+
+
+
+
+
+
+{% if model == "2960X" %}
+ ip access-list extended AUTOQOS-ACL-DEFAULT
+ permit ip any any
+{% endif %}
+
+logging trap notifications
+logging host 172.23.3.12
+
+ip access-list standard 1
+ 10 permit 148.228.8.191
+
+!
+arp access-list ARP
+!
+
+
+{% if model == "2960X" %}
+snmp-server group admin v3 auth access 1
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps transceiver all
+snmp-server enable traps tty
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps cluster
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps energywise
+snmp-server enable traps fru-ctrl
+snmp-server enable traps entity
+snmp-server enable traps power-ethernet police
+snmp-server enable traps cpu threshold
+snmp-server enable traps vstack
+snmp-server enable traps storm-control trap-rate 5
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps flash insertion removal
+snmp-server enable traps port-security
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps errdisable
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps vlan-membership
+
+{% endif %}
+
+{% if model == "9200L" %}
+
+snmp-server group admin v3 auth access 1
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps flowmon
+snmp-server enable traps entity-perf throughput-notif
+snmp-server enable traps call-home message-send-fail server-fail
+snmp-server enable traps tty
+snmp-server enable traps storm-control trap-rate 5
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps port-security
+snmp-server enable traps license
+snmp-server enable traps smart-license
+snmp-server enable traps cpu threshold
+snmp-server enable traps memory bufferpeak
+snmp-server enable traps stackwise
+snmp-server enable traps udld link-fail-rpt
+snmp-server enable traps udld status-change
+snmp-server enable traps fru-ctrl
+snmp-server enable traps flash insertion removal lowspace
+snmp-server enable traps energywise
+snmp-server enable traps power-ethernet police
+snmp-server enable traps entity
+snmp-server enable traps envmon
+snmp-server enable traps event-manager
+snmp-server enable traps ipmulticast
+snmp-server enable traps pimstdmib neighbor-loss invalid-register invalid-join-prune rp-mapping-change interface-election
+snmp-server enable traps msdp
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps vlan-membership
+snmp-server enable traps errdisable
+snmp-server enable traps vrfmib vrf-up vrf-down vnet-trunk-up vnet-trunk-down
+snmp-server enable traps transceiver all
+snmp-server enable traps rf
+snmp-server enable traps bulkstat collection transfer
+snmp-server enable traps mac-notification change move threshold
+
+{% endif %}
+
+banner login ^C
+
+**********************************************************************
+*                                                                    *
+*                     A D V E R T E N C I A                          *
+*                                                                    *
+*        El acceso a este equipo por personal NO autorizado          *
+*             por la DCyTIC - BUAP sera denunciado a las             *
+*              autoridades correspondientes y sancionado             *
+*               por la Ley aplicable por la Institucion.             *
+*                                                                    *
+**********************************************************************
+^C
+!
+line con 0
+ login local
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ exec-timeout 5 0
+ logging synchronous
+ login local
+ transport input ssh
+line vty 5 15
+ exec-timeout 5 0
+ logging synchronous
+ login local
+ transport input ssh

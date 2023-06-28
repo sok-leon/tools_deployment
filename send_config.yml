@@ -1,0 +1,34 @@
+---
+# Ansible Playbook to upload new Cisco IOS
+# Send config base for 9200L
+
+- name: SEND CONFIG FOR C9200L 
+  hosts: "{{ device }}"
+  gather_facts: no
+  connection: network_cli
+
+  vars:
+    ansible_command_timeout: 1200
+
+  tasks:
+    - name: IOS
+      ios_facts:
+
+    - name: "Run command and parse with native"
+      ios_command:
+        commands:
+          - config terminal 
+          - "{{ command }}"
+      register: show
+
+
+    - name: Salida
+      ansible.builtin.debug:
+        msg: "{{ show }} {{ ansible_host}}"
+      
+
+
+      #    - debug:
+      # msg:
+      # - "{{ output.stdout_lines }}"
+     

@@ -1,0 +1,55 @@
+---
+  all:
+    vars:
+      ansible_network_os: ios
+      ansible_user: dcytic
+      ansible_password: Dcytic
+      new_password: DcyT1c.8102*
+      ansible_network_cli_ssh_type: paramiko
+
+
+    children:
+        Prepa_Cabrera:
+          hosts:
+            CABxP1R1Dx:
+              ansible_host: 172.24.79.140
+
+
+        ICS:
+          hosts:
+            ICS4P1R1D1:
+              ansible_host: 172.24.64.165
+            ICS4P1R1D2:
+              ansible_host: 172.24.64.166
+
+
+
+        FIL:
+          hosts:
+            FIL5P2R1D1:
+              ansible_host: 172.24.64.226
+            FIL5P2R1D2:
+              ansible_host: 172.24.64.227
+            FIL3P1R1D2:
+              ansible_host: 172.24.64.229
+            FIL3P1R1D1:
+              ansible_host: 172.24.64.228
+            FIL2P1R1D2:
+              ansible_host: 172.19.55.178
+
+
+        MVZ:
+          hosts:
+            MVZ7P1R1D1:
+              ansible_host: 172.24.76.142
+
+        MVZPos:
+          hosts:
+            MVZ1P1R1D1:
+              ansible_host: 172.18.126.55
+            MVZ2P1R1D1:
+              ansible_host: 172.18.125.200
+
+
+
+

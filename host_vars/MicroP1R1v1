@@ -1,0 +1,27 @@
+---
+hostname: MICROP1R1v1
+sede: MICRO
+mode: video
+
+mng: 
+ ip: 172.24.17.97 255.255.255.192
+ gateway: 172.24.17.65
+ vlan: 804
+
+vlans:
+ - name: AdminSW
+   vlan: 804
+ - name: Video_{{sede}}
+   vlan: 1026
+ 
+
+interface:
+ access: Gi1/0/1-23
+
+trunk:
+ - Gi1/0/24
+ - Te1/1/1
+
+
+allow_trunk: 804,1026
+

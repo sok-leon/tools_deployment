@@ -1,0 +1,26 @@
+---
+hostname: HUP3P1R1v1
+sede: HUP3
+mode: video
+
+mng: 
+ ip: 172.24.17.213 255.255.255.192
+ gateway: 172.24.17.193
+ vlan: 804 
+
+vlans:
+ - name: AdminSW
+   vlan: 804
+ - name: Video_{{sede}}
+   vlan: 1075
+ 
+
+interface:
+ access: Gi1/0/1-24
+
+trunk:
+ - Gi1/1/1
+
+
+allow_trunk: 804,1075
+

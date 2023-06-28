@@ -1,0 +1,63 @@
+clock timezone Mexico -6 0
+clock summer-time UTC recurring last Sun Apr 2:00 1 Sun Oct 2:00
+
+vtp domain buap.mx
+vtp mode transparent
+
+
+{% if model == "2960X" %}
+ip domain-name buap.mx
+{% endif %}
+
+
+
+udld aggressive
+
+spanning-tree mode rapid-pvst
+spanning-tree loopguard default
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+spanning-tree extend system-id
+
+
+crypto key generate rsa modulus 1024
+ip ssh time-out 60
+ip ssh authentication-retries 5
+ip ssh version 2
+ip ssh logging events
+
+logging trap notifications
+logging host 172.23.3.12
+
+
+snmp-server group admin v3 auth
+snmp-server user buapdcytic admin v3 auth md5 d4t05bu4p
+
+banner login ^C
+
+**********************************************************************
+*                                                                    *
+*                     A D V E R T E N C I A                          *
+*                                                                    *
+*        El acceso a este equipo por personal NO autorizado          *
+*             por la DCyTIC - BUAP sera denunciado a las             *
+*              autoridades correspondientes y sancionado             *
+*               por la Ley aplicable por la Institucion.             *
+*                                                                    *
+**********************************************************************
+^C
+!
+line con 0
+ login local
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ exec-timeout 5 0
+ logging synchronous
+ login local
+ transport input ssh
+line vty 5 15
+ exec-timeout 5 0
+ logging synchronous
+ login local
+ transport input ssh

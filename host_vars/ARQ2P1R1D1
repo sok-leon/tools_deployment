@@ -1,0 +1,43 @@
+---
+hostname: ARQ2P1R1D1
+sede: ARQ2
+
+mng: 
+ ip: 172.24.84.2 255.255.255.192
+ gateway: 172.24.84.1
+ vlan: 806
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 602
+ - name: WLAN_EST_{{sede}}
+   vlan: 652 
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 680
+ - name: VOZ
+   vlan: 701
+ - name: AdminSW
+   vlan: 806
+ - name: AdminAP
+   vlan: 831
+ - name: Publicas
+   vlan: 950
+ 
+
+interface:
+ access: Gi1/0/1-17
+
+trunk:
+ - G1/0/18
+ - G1/0/19
+ - G1/0/20
+ - G1/0/21
+ - G1/0/22
+ - G1/0/23
+ - G1/0/24
+ - T1/1/1
+ - T1/1/2
+
+allow_trunk: 602,652,680,690,701,806,831,950
+
+allow_trunk_ap: 652,680,831

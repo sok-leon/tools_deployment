@@ -1,0 +1,22 @@
+#SVI manager
+
+default interface range {{ interface.access }}
+
+{% if mode is undefined %}
+interface range {{ interface.access }}
+ description Uplink to user
+ switchport access vlan {{ vlans[0].vlan }}
+ switchport mode access
+ spanning-tree portfast
+{% endif %}
+
+{% if trunk is defined  %}
+{% for line in trunk %}
+interface  {{ line }}
+ description TRUNK 
+ switchport trunk allowed vlan {{ allow_trunk }}
+ switchport mode trunk
+ switchport nonegotiate
+{%  endfor %}
+{% endif %}
+

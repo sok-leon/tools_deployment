@@ -1,0 +1,34 @@
+---
+hostname: LIB5P1R1D1
+sede: Prepa_Libres
+
+mng: 
+ ip: 172.24.77.131 255.255.255.192
+ gateway: 172.24.77.129
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 600
+ - name: WLAN_EST_{{sede}}
+   vlan: 650 
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 651
+ - name: VOZ
+   vlan: 700
+ - name: AdminSW
+   vlan: 804
+ - name: AdminAP
+   vlan: 805
+ - name: DASU
+   vlan: 850
+ 
+
+interface:
+ access: Gi1/0/7-21
+ trunk: G1/0/22-24
+ ap: Gi1/0/1-6
+
+
+allow_trunk: 600,650,651,700,804,805,850
+
+allow_trunk_ap: 650,651,805

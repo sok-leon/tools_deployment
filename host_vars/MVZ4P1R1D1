@@ -1,0 +1,44 @@
+---
+hostname: MVZ1P1R1D1
+sede: MVZ
+
+mng: 
+ ip: 172.24.76.162 255.255.255.192
+ gateway: 172.24.76.129
+ vlan: 804
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 600
+ - name: WLAN_EST_{{sede}}
+   vlan: 650 
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 651
+ - name: VOZ
+   vlan: 700
+ - name: AdminSW
+   vlan: 804
+ - name: AdminAP
+   vlan: 805
+ 
+
+interface:
+ access: Gi1/0/5-47
+
+trunk:
+ - Gi1/1/1
+ - Gi1/0/24
+
+ap:
+ - Gi1/0/1
+ - Gi1/0/2
+ - Gi1/0/3
+ - Gi1/0/4
+
+
+allow_trunk: 600,650,651,700,804,805
+
+allow_trunk_ap: 650,651,805
+
+snooping: 600,650,651,700
+

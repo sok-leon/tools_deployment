@@ -1,0 +1,54 @@
+---
+hostname: ART1P1R1D2
+sede: ART1
+
+mng: 
+ ip: 172.24.65.67 255.255.255.224
+ gateway: 172.24.65.65
+ vlan: 811
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 607
+ - name: WLAN_EST_{{sede}}
+   vlan: 650 
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 655
+ - name: VOZ
+   vlan: 701
+ - name: AdminSW
+   vlan: 811
+ - name: AdminAP
+   vlan: 797
+ - name: Publicas
+   vlan: 950
+ 
+
+interface:
+ access: Gi1/0/13-47
+
+trunk:
+ - Gi1/0/48
+
+ap:
+ - Gi1/0/1
+ - Gi1/0/2
+ - Gi1/0/3
+ - Gi1/0/4
+ - Gi1/0/5
+ - Gi1/0/6
+ - Gi1/0/7
+ - Gi1/0/8
+ - Gi1/0/9
+ - Gi1/0/10
+ - Gi1/0/11
+ - Gi1/0/12
+
+
+allow_trunk: 607,650,655,701,811,797,950
+
+allow_trunk_ap: 650,655,797
+
+snooping: 607,650,655,701
+
+#stack:

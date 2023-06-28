@@ -1,0 +1,41 @@
+---
+# Ansible Playbook to upload new Cisco IOS
+# Send config base for 9200L
+
+- name: SEND CONFIG FOR C9200L 
+  hosts: "{{ device }}"
+  gather_facts: no
+  connection: network_cli
+
+  vars:
+    ansible_command_timeout: 1200
+
+  tasks:
+    - name: IOS
+      ios_facts:
+
+    - name: "Run command and parse with native"
+      ios_command:
+        commands: 
+          - show logg  | inc "{{ IP }}"
+          - show mac add | inc " {{ mac }}"
+      register: show
+
+    - name: "Send conf logg, ssh event "
+      ios_command:
+        commands: 
+          - conf terminal
+          - logging host 172.23.3.12
+          - ip ssh logging events
+
+
+    - name: Salida
+      ansible.builtin.debug:
+        msg: "{{ show }}"
+      when: outputa is defined
+
+
+      #    - debug:
+      # msg:
+      # - "{{ output.stdout_lines }}"
+     

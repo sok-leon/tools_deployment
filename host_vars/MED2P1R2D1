@@ -1,0 +1,59 @@
+---
+hostname: MED2P1R2D1
+sede: MED2
+
+mng: 
+ ip: 172.24.60.205 255.255.255.224
+ gateway: 172.24.60.222
+ vlan: 807
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 603
+ - name: WLAN_EST_{{sede}}
+   vlan: 653
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 657
+ - name: VOZ
+   vlan: 700
+ - name: AdminSW
+   vlan: 807
+ - name: AdminAP
+   vlan: 797
+ - name: Publicas
+   vlan: 950
+ 
+
+interface:
+ access: Gi1/0/13-22
+
+trunk:
+ - Gi1/0/21
+ - Gi1/0/22
+ - Gi1/0/23
+ - Gi1/0/24
+ - Te1/1/1
+
+ap:
+ - Gi1/0/1
+ - Gi1/0/2
+ - Gi1/0/3
+ - Gi1/0/4
+ - Gi1/0/5
+ - Gi1/0/6
+ - Gi1/0/7
+ - Gi1/0/8
+ - Gi1/0/9
+ - Gi1/0/10
+ - Gi1/0/11
+ - Gi1/0/12
+
+
+
+allow_trunk: 603,653,657,700,807,797,950
+
+allow_trunk_ap: 653,657,797
+
+snooping: 603,653,657,700
+
+#stack:
