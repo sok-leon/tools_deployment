@@ -1,0 +1,31 @@
+---
+sede: MED1
+
+
+# en Orgen (AdminSW, LAN, VOZ, AdminAP, WLAN_EST, WLAN_TRAB, Public)
+#
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 603
+ - name: WLAN_EST_{{sede}}
+   vlan: 653
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 657
+ - name: VOZ
+   vlan: 700
+ - name: AdminSW
+   vlan: 807
+ - name: AdminAP
+   vlan: 795
+ - name: Publicas
+   vlan: 950
+
+
+allow_trunk: 603,653,657,700,807,795,950
+
+allow_trunk_ap: 653,657,797
+
+snooping: 603,653,657,700
+
+#stack:
+

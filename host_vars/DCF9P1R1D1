@@ -1,0 +1,21 @@
+---
+hostname: DCF9P1R1D1
+sede: DCF
+
+mng:
+ ip: 172.24.84.75 255.255.255.192
+ gateway: 172.24.84.65
+
+
+interface:
+ access: Gi1/0/2-23
+
+trunk:
+ - Gi1/0/24
+ - Gi 1/0/25
+
+ap:
+ - Gi1/0/1
+
+
+#stack:

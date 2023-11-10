@@ -1,0 +1,28 @@
+---
+sede: CUE
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 600
+ - name: WLAN_EST_{{sede}}
+   vlan: 650
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 651
+ - name: VOZ
+   vlan: 700
+ - name: AdminSW
+   vlan: 804
+ - name: AdminAP
+   vlan: 805
+ - name: Publicas
+   vlan: 954
+
+
+allow_trunk: 600,650,651,700,804,805,954
+
+allow_trunk_ap: 650,651,805
+
+snooping: 600,650,651,700
+
+#stack:
+

@@ -52,4 +52,9 @@
 
 
 
+        CUE:
+          hosts:
+            CUE5P1R1D2:
+              ansible_host: 172.18.126.143
+
 

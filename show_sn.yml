@@ -1,0 +1,49 @@
+---
+# Ansible Playbook to upload new Cisco IOS
+# Send config base for 9200L
+
+- name: SEND CONFIG FOR C9200L 
+  hosts: "{{ device }}"
+  gather_facts: no
+  connection: network_cli
+
+  vars:
+    ansible_command_timeout: 1200
+    
+
+  tasks:
+    - name: Get ios Facts
+      ios_facts:
+        gather_subset: all
+
+
+    - name: Display model, SN
+      debug:
+        msg: "{{ ansible_net_hostname }}
+               {{ ansible_net_model }}
+               {{ ansible_net_serialnum}}"
+  
+        #    - debug:
+      # msg:
+      # - "{{ output.stdout_lines }}
+    - ansible.builtin.include_tasks:  date_update.yml
+
+   
+    - name: Run several insert queries against db test_db in single transaction
+      community.mysql.mysql_query:
+        login_db: network
+        login_host: 172.18.127.186
+        query:
+        - INSERT INTO switch (sn, name, model, created_at) 
+          VALUES ('{{ ansible_net_serialnum }}', '{{ ansible_net_hostname }}', 
+          '{{ ansible_net_model }}', '{{ ansible_date_time.iso8601 }}')
+        single_transaction: true
+
+    - name: Selec for switch-
+      community.mysql.mysql_query:
+        login_db: network
+        login_host: 172.18.127.186
+        query: SELECT * FROM switch
+
+
+        

@@ -48,26 +48,32 @@
             CAETOP1R1v1:
               ansible_host: 172.18.125.68
  
-        ARQ2:
+        ARQ:
           hosts:
             ARQ2P1R1D1:
-              ansible_host: 172.24.84.2
+              ansible_host: 172.24.99.98
             ARQ2P1R1D2:
-              ansible_host: 172.24.84.3
+              ansible_host: 172.24.99.99
             ARQ2P1R1D3:
-              ansible_host: 172.24.84.4
+              ansible_host: 172.24.99.100
             ARQ2P1R1D4:
-              ansible_host: 172.24.84.5
+              ansible_host: 172.24.99.101
             ARQ2P1R1D5:
-              ansible_host: 172.24.84.6
+              ansible_host: 172.24.99.102
             ARQ2P1R1D6:
-              ansible_host: 172.24.84.20
+              ansible_host: 172.24.99.103
             ARQ2P1R1D7:
-              ansible_host: 172.24.84.21
+              ansible_host: 172.24.99.104
             ARQ2P1R1D8:
-              ansible_host: 172.24.84.22
-            ARQ2P1R1v1:
-              ansible_host: 172.24.16.131
+              ansible_host: 172.24.99.105
+#            ARQ2P1R1v1:
+#              ansible_host: 172.24.16.131
+            ARQ6P1R1D1:
+              ansible_host: 172.24.99.110
+            ARQ6P1R1D2:
+              ansible_host: 172.24.99.111
+            ARQ6P1R1D3:
+              ansible_host: 172.24.99.112
 
         DAE-1:
           hosts:
@@ -105,3 +111,11 @@
               ansible_host: 172.24.86.201
             BCUP3R1D3:
               ansible_host: 172.24.86.202
+
+
+        ESU:
+          hosts:
+            ESU1P2R1D1:
+              ansible_host: 172.18.126.246
+            ESU2P1R1D1:
+              ansible_host: 172.18.125.32

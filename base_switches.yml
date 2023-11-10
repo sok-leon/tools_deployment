@@ -11,20 +11,20 @@
       ios_command:
         commands:
           - conf ter
-          - ip ssh source-interface vlan {{ mng.vlan }}
-          - ip tacacs source-interface vlan {{ mng.vlan}}
-          - logging source-interface vlan {{ mng.vlan}}
-          - ntp server 172.23.3.13 source vlan {{ mng.vlan}}
+          - ip ssh source-interface vlan {{ vlans[0].vlan }}
+          - ip tacacs source-interface vlan {{ vlans[0].vlan}}
+          - logging source-interface vlan {{ vlans[0].vlan}}
+          - ntp server 172.23.3.13 source vlan {{ vlans[0].vlan}}
       when: mode is defined  
 
     - name: Config  Tacacs, SSH and NTP origen
       ios_command:
         commands:
           - conf ter
-          - ip ssh source-interface vlan {{ vlans[4].vlan }}
-          - ip tacacs source-interface vlan {{ vlans[4].vlan}}
-          - logging source-interface vlan {{ vlans[4].vlan}}
-          - ntp server 172.23.3.13 source vlan {{ vlans[4].vlan}}
+          - ip ssh source-interface vlan {{ vlans[0].vlan }}
+          - ip tacacs source-interface vlan {{ vlans[0].vlan}}
+          - logging source-interface vlan {{ vlans[0].vlan}}
+          - ntp server 172.23.3.13 source vlan {{ vlans[0].vlan}}
       when: mode is undefined  
 
 
@@ -52,7 +52,7 @@
         commands:
           - conf ter
           - ip arp inspection vlan {{ snooping }}
-          - ip arp inspection filter ARP vlan {{ vlans[0].vlan }}
+          - ip arp inspection filter ARP vlan {{ snooping }}
           - no ip dhcp snooping information option
           - ip dhcp bootp ignore
           - ip dhcp snooping vlan {{ snooping }}

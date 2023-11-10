@@ -1,0 +1,19 @@
+---
+hostname: ESU2P1R1D1
+sede: ESU
+
+mng:
+ ip: 172.24.93.86 255.255.255.224
+ gateway: 172.24.93.65
+
+
+interface:
+ access: Gi1/0/1-23
+
+trunk:
+ - Gi1/0/24
+ - Gi1/1/1
+
+#ap:
+
+#stack:

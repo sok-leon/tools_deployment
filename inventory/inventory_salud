@@ -36,6 +36,8 @@
           hosts:
             MED1P1R1D1:
               ansible_host: 172.24.60.199
+            MED1P1R1D4:
+              ansible_host: 172.24.60.201
  
 
 

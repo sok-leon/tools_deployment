@@ -1,0 +1,29 @@
+---
+sede: ESU
+
+
+# en Orgen (AdminSW, LAN, VOZ, AdminAP, WLAN_EST, WLAN_TRAB, Public)
+#
+vlans:
+ - name: AdminSW
+   vlan: 809
+ - name: LAN_{{sede}}
+   vlan: 606
+ - name: VOZ
+   vlan: 701
+ - name: AdminAP
+   vlan: 831
+ - name: WLAN_EST_{{sede}}
+   vlan: 652
+ - name: Publicas
+   vlan: 951
+
+
+allow_trunk: 809,606,701,831,652,951
+
+allow_trunk_ap: 831,652,606
+
+snooping: 606,652,701
+
+#stack:
+

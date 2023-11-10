@@ -34,10 +34,10 @@
       - name: Continue if hash matches
         block:
 
-        - name: Change bootVariable to new image
+        - name: Change boot Variable to new image
           ios_config:
              commands:
-                - conf ter
+                - no boot system
                 - boot system 'flash:{{new_ios_file_name_X}}'
              save_when: always
 

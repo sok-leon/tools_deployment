@@ -1,0 +1,18 @@
+---
+  all:
+    vars:
+      ansible_network_os: ios
+      ansible_user: dcytic
+      ansible_password: Dcytic
+      new_password: DcyT1c.8102*
+      ansible_network_cli_ssh_type: paramiko
+
+
+    children:
+        DCF:
+          hosts:
+            DCF9P1R1D1:
+              ansible_host: 172.18.126.252
+            DCF9P1R2D1:
+              ansible_host: 172.18.127.30
+              

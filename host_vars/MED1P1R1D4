@@ -1,0 +1,18 @@
+---
+hostname: MED1P1R1D4
+sede: MED1
+
+mng:
+ ip: 172.24.60.201 255.255.255.224
+ gateway: 172.24.60.222
+ vlan: 807
+
+interface:
+ access: Gi1/0/8-23
+
+trunk:
+ - Gi1/0/24
+
+#ap:
+
+#stack:

@@ -1,0 +1,30 @@
+---
+sede: DCF
+
+
+# en Orgen (AdminSW, LAN, VOZ, AdminAP, WLAN_EST, WLAN_TRAB, Public)
+#
+vlans:
+ - name: AdminSW
+   vlan: 802
+ - name: LAN_{{sede}}
+   vlan: 601
+ - name: VOZ
+   vlan: 702
+ - name: AdminAP
+   vlan: 831
+ - name: WLAN_EST_{{sede}}
+   vlan: 653
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 680
+ - name: Publicas
+   vlan: 950
+
+
+allow_trunk: 802,601,702,831,653,680,950
+
+allow_trunk_ap: 831,653,680
+
+snooping: 601,653,680,702
+
+#stack:

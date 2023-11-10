@@ -1,6 +1,6 @@
 #SVI manager
 
-interface  vlan{{mng.vlan}}
+interface  vlan{{vlans[0].vlan}}
  ip address {{ mng.ip }}
 
 ip default-gateway {{ mng.gateway }}
@@ -10,9 +10,9 @@ default interface range {{ interface.access }}
 {% if mode is undefined %}
 interface range {{ interface.access }}
  description Uplink to user
- switchport access vlan {{ vlans[0].vlan }}
+ switchport access vlan {{ vlans[1].vlan }}
  switchport mode access
- switchport voice vlan  {{ vlans[3].vlan }}
+ switchport voice vlan  {{ vlans[2].vlan }}
  switchport port-security maximum 3
  switchport port-security violation  restrict
  switchport port-security aging time 3
@@ -79,9 +79,9 @@ interface  {{ line }}
 {% for line in ap %}
  interface range {{ line }}
   description AP-Ligero
-  switchport trunk native vlan {{ vlans[5].vlan }}
+  switchport trunk native vlan {{ vlans[3].vlan }}
   switchport trunk allowed vlan {{ allow_trunk_ap }}
-  switchport trunk allowed vlan add {{ vlans[5].vlan }}
+  switchport trunk allowed vlan add {{ vlans[3].vlan }}
   switchport mode trunk
   ip arp inspection trust
 {% endfor %}

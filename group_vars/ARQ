@@ -1,0 +1,28 @@
+---
+sede: ARQ
+
+vlans:
+ - name: LAN_{{sede}}
+   vlan: 604
+ - name: WLAN_EST_{{sede}}
+   vlan: 652
+ - name: WLAN_TRAB_{{sede}}
+   vlan: 680
+ - name: VOZ
+   vlan: 700
+ - name: AdminSW
+   vlan: 807
+ - name: AdminAP
+   vlan: 830
+ - name: Publicas
+   vlan: 950
+
+
+allow_trunk: 604,652,680,700,807,830,950
+
+allow_trunk_ap: 652,680,830
+
+snooping: 604,652,680,700
+
+#stack:
+
